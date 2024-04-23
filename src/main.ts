@@ -4,7 +4,11 @@ import { json, urlencoded } from "express";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({ origin: "http://localhost:3000" });
+  if (process.env.FRONTEND_URL) {
+    app.enableCors({ origin: process.env.FRONTEND_URL });
+  } else {
+    app.enableCors();
+  }
   app.setGlobalPrefix("api");
   app.use(json({ limit: "50mb" }));
   app.use(urlencoded({ extended: true, limit: "50mb" }));

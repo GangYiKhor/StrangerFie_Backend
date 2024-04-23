@@ -16,6 +16,7 @@ NODE_ENV="development"
 PLATFORM="local" # use "server" if deployed on cloud server
 BG_REMOVE_METHOD="local" # use "api" if "local" fails
 PORT="3001" # Any port number
+FRONTEND_URL="YOUR_FRONTEND_URL" # Optional, if not set, allow any frontend server to connect
 DATABASE_URL="YOUR_POSTGRES_DATABASE_URL"
 RAPID_API_KEY="YOUR_RAPID_API_KEY"
 ```
