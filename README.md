@@ -244,3 +244,12 @@ body: {
 6. Open `Azure` extension, and Login to your Azure Account
 7. Search for the Function App
 8. Right-Click, Select Deploy to Function App
+
+### Future References
+
+When building the deployment settings _(Already done on this repo)_:
+
+- You need to `npm install @schematics/angular` first
+- Then, run `npx nest add @nestjs/azure-func-http`
+- You may encounter some dependency issues
+- It can be fixed by downgrading `reflect-metadata` to `v0.1.13`
