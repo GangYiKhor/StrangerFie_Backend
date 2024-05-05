@@ -4,6 +4,12 @@ This prototype is built for a concept of group photo-taking with strangers. Anyo
 
 This is a prototype built for Interaction Design Coursework of BSc IT at UWE, Bristol
 
+## Server
+
+The backend server is hosted on https://strangerfie-backend.azurewebsites.net
+<br/>
+Get a `Hello World!` on https://strangerfie-backend.azurewebsites.net/api/api
+
 ## Environment Settings
 
 - Node Version `v20.3.1`
@@ -227,3 +233,23 @@ body: {
 	status: "boolean",
 }
 ```
+
+## To Deploy onto Azure Function
+
+1. Create your Azure Function App on [Azure Portal](https://portal.azure.com/#home)
+2. Install `Azure` extension on your VSCode
+3. Clone this repository
+4. Run `npm run install`
+5. Run `npm run build`
+6. Open `Azure` extension, and Login to your Azure Account
+7. Search for the Function App
+8. Right-Click, Select Deploy to Function App
+
+### Future References
+
+When building the deployment settings _(Already done on this repo)_:
+
+- You need to `npm install @schematics/angular` first
+- Then, run `npx nest add @nestjs/azure-func-http`
+- You may encounter some dependency issues
+- It can be fixed by downgrading `reflect-metadata` to `v0.1.13`

@@ -1,4 +1,3 @@
-import removeBackground, { Config } from "@imgly/background-removal-node";
 import { Injectable } from "@nestjs/common";
 import axios from "axios";
 import { ImagesDbService } from "src/prisma/images-db.service";
@@ -22,15 +21,10 @@ export class UploadFileService {
   ) {}
 
   async uploadFile(image: string): Promise<uploadFileResponses> {
-    const removeBgFunc =
-      process.env.BG_REMOVE_METHOD === "local"
-        ? this.localRemoveBg
-        : this.removeBg;
-
     const imageBuffer = Buffer.from(image.split(",")[1], "base64");
     const blurredImageBuffer = await this.blurFaces(imageBuffer);
-    const personImageBuffer = await removeBgFunc(imageBuffer);
-    const blurredPersonImageBuffer = await removeBgFunc(blurredImageBuffer);
+    const personImageBuffer = await this.removeBg(imageBuffer);
+    const blurredPersonImageBuffer = await this.removeBg(blurredImageBuffer);
 
     const id = await this.imagesDb.createImage({
       image_blob: imageBuffer,
@@ -55,15 +49,6 @@ export class UploadFileService {
         "data:image/jpeg;base64," + onlyCurrentImage.toString("base64"),
       id: id.toString(),
     };
-  }
-
-  async localRemoveBg(imageBuffer: Buffer): Promise<Buffer> {
-    const config: Config = { output: { format: "image/png" } };
-    const blob = new Blob([imageBuffer], { type: "image/jpeg" });
-
-    const removedBackground = await removeBackground(blob, config);
-
-    return Buffer.from(await removedBackground.arrayBuffer());
   }
 
   async removeBg(imageBuffer: Buffer): Promise<Buffer> {
